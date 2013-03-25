@@ -174,3 +174,117 @@ MarGo: Missing environment variable(s): GOPATH
 ** 2013-02-26 19:28:48.735055 **:
 MarGo: Missing environment variable(s): GOPATH
 --------------------------------
+
+** 2013-03-13 12:27:02.605351 **:
+MarGo: Missing environment variable(s): GOPATH
+--------------------------------
+
+** 2013-03-13 12:27:21.098843 **:
+MarGo: Installation aborted. Install command already called for GoSublime r13.02.08-2.
+--------------------------------
+
+** 2013-03-14 10:58:48.281269 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.r13.03.03-1.margo.exe: command not found
+--------------------------------
+
+** 2013-03-14 10:58:48.282463 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-03-14 10:59:12.214304 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.r13.03.03-1.margo.exe: command not found
+--------------------------------
+
+** 2013-03-14 10:59:12.215185 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-03-15 10:59:14.073740 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.r13.03.03-1.margo.exe: command not found
+--------------------------------
+
+** 2013-03-15 10:59:14.099704 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-03-18 11:12:52.162823 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.r13.03.03-1.margo.exe: command not found
+--------------------------------
+
+** 2013-03-18 11:12:52.191370 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-03-18 11:13:05.973116 **:
+MarGo: Installation aborted. Install command already called for GoSublime r13.03.03-1.
+--------------------------------
+
+** 2013-03-19 10:41:38.754313 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.r13.03.16-2.margo.exe: command not found
+--------------------------------
+
+** 2013-03-19 10:41:38.781989 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-03-19 18:59:17.881392 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.r13.03.16-2.margo.exe: command not found
+--------------------------------
+
+** 2013-03-19 18:59:17.883005 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-03-21 10:19:42.663836 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.r13.03.16-2.margo.exe: command not found
+--------------------------------
+
+** 2013-03-21 10:19:42.697648 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-03-21 10:19:57.468512 **:
+MarGo: Installation aborted. Install command already called for GoSublime r13.03.16-2.
+--------------------------------
+
+** 2013-03-22 10:23:24.382933 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.03.20-1.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-03-22 10:23:24.419636 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-03-22 10:23:36.987036 **:
+MarGo: Installation aborted. Install command already called for GoSublime r13.03.20-1.
+--------------------------------
+
+** 2013-03-25 10:41:52.227588 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.03.20-1.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-03-25 10:41:52.256136 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-03-25 10:42:02.264495 **:
+MarGo: Installation aborted. Install command already called for GoSublime r13.03.20-1.
+--------------------------------
+
+** 2013-03-25 10:43:56.455498 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.03.24-3.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-03-25 10:43:56.456464 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------

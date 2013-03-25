@@ -11,6 +11,8 @@
 		"Vintage"
 	],
 	"open_files_in_new_window": false,
+	"hot_exit": false,
+	"remember_open_files": false,
 	"scroll_past_end": true,
 	"show_full_path": true,
 	"tab_size": 2,
