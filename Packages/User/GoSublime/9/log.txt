@@ -333,3 +333,104 @@ env output: /bin/bash: gosublime.margo.r13.03.28-2.osx-x64.exe: command not foun
 ** 2013-03-29 11:42:07.323372 **:
 MarGo: Missing environment variable(s): GOROOT, GOPATH
 --------------------------------
+
+** 2013-04-01 14:30:25.555364 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.03.28-2.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-01 14:30:25.575533 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-04-02 16:56:50.773450 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.03.31-1.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-02 16:56:50.810290 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-04-03 11:37:23.554918 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.04.01-1.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-03 11:37:23.583210 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-04-08 10:09:44.849767 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.04.01-1.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-08 10:09:44.878509 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-04-09 10:18:03.675403 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.04.01-1.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-09 10:18:03.690302 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-04-10 09:56:44.581448 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.04.01-1.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-10 09:56:44.616657 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-04-11 10:14:20.407674 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.04.01-1.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-11 10:14:20.424460 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-04-12 10:56:31.303374 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.04.01-1.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-12 10:56:31.340558 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-04-15 11:50:58.375284 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.04.01-1.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-15 11:50:58.392399 **:
+MarGo: Missing environment variable(s): GOROOT, GOPATH
+--------------------------------
+
+** 2013-04-16 10:44:17.562182 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.08.14-2.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-16 10:44:17.568629 **:
+MarGo: Missing required environment variables: GOROOT GOPATH
+See the `Quirks` section of USAGE.md for info
+--------------------------------
+
+** 2013-04-17 11:09:55.273158 **:
+MarGo: Cannot load env vars: Decode Error: No JSON object could be decoded
+env output: /bin/bash: gosublime.margo.r13.08.14-2.osx-x64.exe: command not found
+--------------------------------
+
+** 2013-04-17 11:09:55.283548 **:
+MarGo: Missing required environment variables: GOROOT GOPATH
+See the `Quirks` section of USAGE.md for info
+--------------------------------
