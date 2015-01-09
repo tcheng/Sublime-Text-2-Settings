@@ -4,3 +4,6 @@
 [submodule "Packages/SublimeLogHelper"]
 	path = Packages/SublimeLogHelper
 	url = git://github.com/kliu/SublimeLogHelper.git
+[submodule "HexViewer"]
+	path = HexViewer
+	url = https://github.com/facelessuser/HexViewer.git
