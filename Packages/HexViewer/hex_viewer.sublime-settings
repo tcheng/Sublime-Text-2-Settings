@@ -26,12 +26,31 @@
     // Show inspector panel on hex view load and hide on hex view hide
     "inspector_auto_show" : true,
 
+    // Treat files in hex syntax with proper format
+    // (usually .hex files; saved versions of hex output)
+    // as real hex views.  The following functionality will be omitted:
+    // hex toggle, editing, writing to file,
+    // and dynamic changing of bits and bytes functionality.
+    // Address searching, Hex inspector, etc. should work fine.
+    "enable_fake_hex_file": true,
+
     // Approximate max byte selection.
     // The highlighter will highlight individual selections until
     // the max number of bytes is found.  The selection containing
     // the maximum byte will still be finished even if it has more
     // bytes than the max.
     "highlight_max_bytes" : 1000,
+
+    // Maximum allowed byte size that HexViewer will parse
+    "max_file_size_kb": 50000.0,
+
+    // External Hex Viewer if max size is exceeded.
+    // Viewer should be the absolute path.
+    // Args is an array of command line arguments. Use ${FILE} for the file path.
+    "external_viewer": {
+        "viewer": "",
+        "args": ["${FILE}"]
+    },
 
     //Enable highlight throttling
     "highlight_throttle" : false,
@@ -60,5 +79,20 @@
     "auto_open" : false,
 
     // Auto open patterns to open in hex viewer
-    "auto_open_patterns" : ["*.bin", "*.pyc"]
+    "auto_open_patterns" : ["*.bin", "*.pyc"],
+
+    // Inspector format strings: ints and unsigned ints
+    "inspector_integer_format": "%-12s:  %-14d",
+
+    // Inspector format strings: floating point decimals
+    "insepctor_float_format": "%-12s:  %-14e",
+
+    // Inspector format strings: double floating point decimal strings
+    "inspector_double_format": "%-12s:  %-14e",
+
+    // Inspector format strings: "NAN" and not enough bytes to show numbers "--"
+    "inspector_missing/bad_format": "%-12s:  %-14s",
+
+    // Binary number formatting
+    "inspector_binary_format": "%-12s:  %-14s"
 }

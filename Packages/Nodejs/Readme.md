@@ -3,6 +3,8 @@ Nodejs Sublime Text 2 Package
 
 # PROJECT LOOKING FOR NEW MAINTAINER
 
+## Please note this project is no longer activley maintained. The occasional pull request is accepted but it looking for someone to officially take over 
+
 Since I started this project, I've not really know where to take it past the initial few versions I released. As such
 I am no longer maintaining this project - nor do I have the time to look into some of the existing issues.
 
@@ -58,13 +60,13 @@ or using git with the below commands:
 
 *Windows*
 
-    `git clone git://github.com/tanepiper/SublimeText-Nodejs.git "%APPDATA%\Sublime Text 2\Packages\Nodejs"`
+    `git clone https://github.com/tanepiper/SublimeText-Nodejs "%APPDATA%\Sublime Text 2\Packages\Nodejs"`
 
 Build Systems
 -------------
 PLEASE NOTE: The build system will be refactored to provide different nodejs build systems (such as jake)
 
-If you have a JavaScript file open, by selecting selecting `Tools -> Build Systems -> Nodejs` and
+If you have a JavaScript file open, by selecting `Tools -> Build Systems -> Nodejs` and
 then hitting Ctrl + B, you will activate the node build system on your file and node will try to run it.
 You may need to add a `path` variable to the settings object for this if your node executable is not found
 

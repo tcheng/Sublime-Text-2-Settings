@@ -1,6 +1,7 @@
-# Gist
+# Gist [![Build Status](https://travis-ci.org/condemil/Gist.svg?branch=master)](https://travis-ci.org/condemil/Gist)
 
-A [Sublime Text 2](http://www.sublimetext.com/) plugin for creating and editing Gists.
+A [Sublime Text 2/3](http://www.sublimetext.com/) plugin for creating and editing Gists.
+
 
 # Installation
 
@@ -14,25 +15,36 @@ Go to the "Packages" directory (`Preferences` / `Browse Packages…`). Then clon
 
     git clone git://github.com/condemil/Gist
 
+
 # Generating Access Token
 
-Currently, the only way to create a Gist Access Token is to curl the authorize API from Github. Here's the command you can run from your terminal to do so:
+As of [2013-05-16](https://github.com/blog/1509-personal-api-tokens), you can generate API Access Tokens via the Web UI or via the GitHub API.
+**All other authorization methods is deprecated.**
 
-    curl -v -u USERNAME -X POST https://api.github.com/authorizations --data "{\"scopes\":[\"gist\"]}"
+## Web
+* Account Settings -> [Applications](https://github.com/settings/applications)
+* "Generate new token" under "Personal access tokens"
+* For "Token description" you should give it a meaningful name, Example: sublime gist
+* Under "Select scopes" you can just select gist
+
+Paste the token in the settings section under the token option.
+
+## API
+
+Here's a command you can run from your terminal to generate a token via curl:
+
+    curl -v -u USERNAME -X POST https://api.github.com/authorizations --data "{\"scopes\":[\"gist\"], \"note\": \"SublimeText 2/3 Gist plugin\"}"
 
 Where USERNAME is your Github username. Save the token generated and paste it in the settings section under the token option.
 
+
 # Options
 
-If you're using OS X and have a keychain entry for github.com, no configuration is needed. Otherwise, edit the settings file (it should open automatically the first time you use a Gist command). Note you must specifiy either username AND password or token.
+Edit the settings file (it should open automatically the first time you use a Gist command) to specify either token.
 
-*   `"username": ""`
+*   `"token": ""`
 
-    You can enter your GitHub username here
-
-*   `"password": ""`
-
-    You can enter your GitHub password here
+    You must enter your GitHub token here
 
 *   `"https_proxy": http://user:pass@proxy:port`
 
@@ -55,6 +67,11 @@ If you're using OS X and have a keychain entry for github.com, no configuration 
 
     Limit the Gists displayed in the `Open Gist` list by prefix. Leave blank to display all Gists. Example: `"gist_prefix": "Snippet:"` will only list Gists with names starting with the text **Snippet:**.
 
+* `"save-update-hook": true`
+
+    Set the on-save behaviour of a loaded Gist. True implies that when the Gist is saved, it'll update the online Gist. False implies that it'll bring up a save dialog for the Gist to be saved to disk.
+
+
 # Usage
 
 All functionality of the plugin is available in the `Tools` / `Gist` menu and in the command pallette.
@@ -65,11 +82,13 @@ Use the `Gist` / `Create Public Gist` or `Gist` / `Create Private Gist` commands
 
 ## Editing existing Gists
 
-Use the `Gist` / `Open Gist` command to see a list of your Gists. Selecting one will open the files from that Gist in new tabs. You can then edit the files normally and use `Gist` / `Update File` to update the Gist, or use other commands to change Gist description, remove or rename files, or delete the Gist.
+Use the `Gist` / `Open Gist` command to see a list of your Gists. Selecting one will open the files from that Gist in new tabs. You can then edit the files normally and save to update the Gist, or use other commands to change Gist description, remove or rename files, or delete the Gist.
+
 
 ## Adding new files to existing Gists
 
 Use the `Gist` / `Add File To Gist` command to see a list of your Gists. Selecting one will add contents of current file as a new file to that Gist and switch the file to Gist editing mode.
+
 
 # Default key bindings:
 

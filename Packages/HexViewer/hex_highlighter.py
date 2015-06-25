@@ -9,6 +9,7 @@ import sublime_plugin
 from hex_common import *
 from time import time, sleep
 import thread
+import re
 
 HIGHLIGHT_SCOPE = "string"
 HIGHLIGHT_ICON = "dot"
@@ -49,7 +50,22 @@ class HexHighlighter(object):
         self.bytes_wide = self.view.settings().get("hex_viewer_actual_bytes", None)
         self.highlight_scope = hv_settings.get("highlight_scope", HIGHLIGHT_SCOPE)
         self.highlight_icon = hv_settings.get("highlight_icon", HIGHLIGHT_ICON)
+        self.enable_fake_hex = hv_settings.get("enable_fake_hex_file", True)
         style = hv_settings.get("highlight_style", HIGHLIGHT_STYLE)
+
+        if (group_size is None or self.bytes_wide is None) and self.enable_fake_hex:
+            m = re.match(r'[\da-z]{8}:[\s]{2}((?:[\da-z]+[\s]{1})*)\s*\:[\w\W]*', self.view.substr(self.view.line(0)))
+            if m is not None:
+                hex_chars = m.group(1).split(' ')
+                group_size = (len(hex_chars[0]) / 2) * 8
+                self.bytes_wide = (len(hex_chars[0]) / 2) * (len(hex_chars) - 1)
+                self.view.settings().set("hex_viewer_bits", group_size)
+                self.view.settings().set("hex_viewer_actual_bytes", self.bytes_wide)
+                self.view.settings().set("hex_viewer_fake", True)
+                self.view.set_read_only(True)
+                self.view.set_scratch(True)
+                if hv_settings.get("inspector", False) and hv_settings.get("inspector_auto_show", False):
+                    self.view.window().run_command("hex_show_inspector")
 
         # No icon?
         if self.highlight_icon == "none":
@@ -64,8 +80,8 @@ class HexHighlighter(object):
         elif style == "underline":
             self.highlight_style = sublime.DRAW_EMPTY_AS_OVERWRITE
 
-        #Process hex grouping
-        if group_size != None and self.bytes_wide != None:
+        # Process hex grouping
+        if group_size is not None and self.bytes_wide is not None:
             self.group_size = group_size / BITS_PER_BYTE
             self.hex_char_range = get_hex_char_range(self.group_size, self.bytes_wide)
             init_status = True
@@ -128,7 +144,7 @@ class HexHighlighter(object):
         if self.first_all == -1:
             self.first_all = hex_pos
 
-         # Traverse row finding the specified bytes
+        # Traverse row finding the specified bytes
         highlight_start = -1
         byte_count = bytes
         while byte_count:
@@ -159,13 +175,13 @@ class HexHighlighter(object):
 
         # Determine if selection is within ascii range
         if (
-                start >= ascii_range.begin() and
-                (
-                    # Single selection should ignore the end of line selection
-                    (end == start and end < ascii_range.end() - 1) or
-                    (end != start and end < ascii_range.end())
-                )
-            ):
+            start >= ascii_range.begin() and
+            (
+                # Single selection should ignore the end of line selection
+                (end == start and end < ascii_range.end() - 1) or
+                (end != start and end < ascii_range.end())
+            )
+        ):
             # Single char selection
             if sel.size() == 0:
                 bytes = 1
@@ -222,7 +238,7 @@ class HexHighlighter(object):
                 self.hex_to_ascii(sel)
 
     def run(self, window):
-        if window == None:
+        if window is None:
             return
         self.window = window
         view = self.window.active_view()
@@ -295,7 +311,7 @@ def hh_run():
 # be ignored and then accounted for with one match by this thread
 def hh_loop():
     while not HhThreadMgr.restart:
-        if Pref.modified == True and time() - Pref.time > Pref.wait_time:
+        if Pref.modified is True and time() - Pref.time > Pref.wait_time:
             sublime.set_timeout(lambda: hh_run(), 0)
         sleep(0.5)
 
@@ -303,7 +319,7 @@ def hh_loop():
         HhThreadMgr.restart = False
         sublime.set_timeout(lambda: thread.start_new_thread(hh_loop, ()), 0)
 
-if not 'running_hh_loop' in globals():
+if 'running_hh_loop' not in globals():
     running_hh_loop = True
     thread.start_new_thread(hh_loop, ())
 else:

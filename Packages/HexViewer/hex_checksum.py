@@ -1,8 +1,8 @@
-'''
+"""
 Hex Viewer
 Licensed under MIT
 Copyright (c) 2011 Isaac Muse <isaacmuse@gmail.com>
-'''
+"""
 
 import sublime
 import sublime_plugin
@@ -15,11 +15,18 @@ import sys
 import whirlpool
 import tiger
 import sum_hashes
+from StringIO import StringIO
+import traceback
 
 DEFAULT_CHECKSUM = "md5"
 VALID_HASH = []
 
 active_thread = None
+
+
+def parse_view_data(data_buffer):
+    for line in data_buffer:
+        yield re.sub(r'[\da-z]{8}:[\s]{2}((?:[\da-z]+[\s]{1})*)\s*\:[\w\W]*', r'\1', line).replace(" ", "").decode("hex")
 
 
 def verify_hashes(hashes):
@@ -149,9 +156,9 @@ class checksum(object):
     thread = None
 
     def __init__(self, hash_algorithm=None, data=""):
-        if hash_algorithm is None or not hash_algorithm in VALID_HASH:
+        if hash_algorithm is None or hash_algorithm not in VALID_HASH:
             hash_algorithm = hv_settings.get("hash_algorithm", DEFAULT_CHECKSUM)
-        if not hash_algorithm in VALID_HASH:
+        if hash_algorithm not in VALID_HASH:
             hash_algorithm = DEFAULT_CHECKSUM
         self.hash = getattr(hashlib, hash_algorithm)(data)
         self.name = hash_algorithm
@@ -160,13 +167,12 @@ class checksum(object):
         if isinstance(data, basestring):
             self.hash.update(data)
 
-    def threaded_update(self, data=[]):
-        if not isinstance(data, basestring):
-            global active_thread
-            self.thread = hash_thread(data, self.hash)
-            self.thread.start()
-            self.chunk_thread()
-            active_thread = self
+    def threaded_update(self, data_buffer=[], fmt_callback=None, count=None):
+        global active_thread
+        self.thread = hash_thread(data_buffer, self.hash, fmt_callback, count)
+        self.thread.start()
+        self.chunk_thread()
+        active_thread = self.thread
 
     def chunk_thread(self):
         ratio = float(self.thread.chunk) / float(self.thread.chunks)
@@ -193,22 +199,30 @@ class checksum(object):
 
 
 class hash_thread(threading.Thread):
-    def __init__(self, data, obj):
+    def __init__(self, data, obj, fmt_callback=None, count=None):
         self.hash = False
         self.data = data
         self.obj = obj
         self.chunk = 0
-        self.chunks = len(data)
+        self.chunks = len(data) if count is None else count
         self.abort = False
+        self.fmt_callback = fmt_callback if fmt_callback is not None else self.format
         threading.Thread.__init__(self)
 
+    def format(self, data):
+        for x in data:
+            yield x
+
     def run(self):
-        for chunk in self.data:
-            self.chunk += 1
-            if self.abort:
-                return
-            else:
-                self.obj.update(chunk)
+        try:
+            for chunk in self.fmt_callback(self.data):
+                self.chunk += 1
+                if self.abort:
+                    return
+                else:
+                    self.obj.update(chunk)
+        except:
+            print(str(traceback.format_exc()))
 
 
 class HashSelectionCommand(sublime_plugin.WindowCommand):
@@ -270,12 +284,16 @@ class HashEvalCommand(sublime_plugin.WindowCommand):
 
 class HexChecksumCommand(sublime_plugin.WindowCommand):
     def is_enabled(self):
-        return is_enabled()
+        global active_thread
+        return (
+            is_enabled() and
+            not (active_thread is not None and active_thread.is_alive())
+        )
 
     def run(self, hash_algorithm=None, panel=False):
         global active_thread
-        if active_thread is not None and active_thread.thread is not None and active_thread.thread.is_alive():
-            active_thread.thread.abort = True
+        if active_thread is not None and active_thread.is_alive():
+            sublime.error_message("HexViewer is already checksumming a file!\nPlease run the abort command to stop the current checksum.")
         else:
             if not panel:
                 self.get_checksum(hash_algorithm)
@@ -291,11 +309,23 @@ class HexChecksumCommand(sublime_plugin.WindowCommand):
         if view is not None:
             sublime.set_timeout(lambda: sublime.status_message("Checksumming..."), 0)
             hex_hash = checksum(hash_algorithm)
-            r_buffer = view.split_by_newlines(sublime.Region(0, view.size()))
-            hex_data = []
-            for line in r_buffer:
-                hex_data.append(re.sub(r'[\da-z]{8}:[\s]{2}((?:[\da-z]+[\s]{1})*)\s*\:[\w\W]*', r'\1', view.substr(line)).replace(" ", "").decode("hex"))
-            hex_hash.threaded_update(hex_data)
+            row = view.rowcol(view.size())[0] - 1
+            hex_hash.threaded_update(
+                StringIO(view.substr(sublime.Region(0, view.size()))),
+                parse_view_data,
+                row
+            )
+
+
+class HexChecksumAbortCommand(sublime_plugin.WindowCommand):
+    def run(self):
+        global active_thread
+        if active_thread is not None and active_thread.is_alive():
+            active_thread.abort = True
+
+    def is_enabled(self):
+        global active_thread
+        return active_thread is not None and active_thread.is_alive()
 
 
 # Compose list of hashes
@@ -312,7 +342,7 @@ verify_hashes(
     ]
 )
 
-#Define extra hash classes as members of hashlib
+# Define extra hash classes as members of hashlib
 hashlib.md2 = md2
 hashlib.mdc2 = mdc2
 hashlib.md4 = md4

@@ -1,1 +1,1 @@
-{"url": "https://github.com/facelessuser/HexViewer", "version": "2013.03.03.17.46.08", "description": "Hex viewer and editor for SublimeText2"}
+{"description": "Hex viewer and editor for SublimeText", "url": "https://github.com/facelessuser/HexViewer", "platforms": ["*"], "version": "1.9.0", "sublime_text": "<3000", "dependencies": []}

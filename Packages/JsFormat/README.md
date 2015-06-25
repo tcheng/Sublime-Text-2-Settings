@@ -1,48 +1,71 @@
-## Summary
-JsFormat is a javascipt formatting plugin for Sublime Text 2.
-It uses the commandline/python-module javascript formatter from http://jsbeautifier.org/ to format the selected text, 
-or the entire file if there is no selection.
+[![Join the chat at https://gitter.im/jdc0589/JsFormat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jdc0589/JsFormat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## About
+JsFormat is a javascript formatting plugin for Sublime Text 2.
+It uses [jsbeautifier](https://github.com/beautify-web/js-beautify) to format whole js or json files, or the selected portion(s).
 
 
 ## Features
 * javascript/json formatting (obviously)
 * all settings are customizable (whitespace, formatting style, etc..)
-* puts the cursor back in the same location it was before formatting (accounts for whitespace/newline changes)* 
-* Sublime Text 3 support (as much as we can support alpha/beta software)
+* .jsbeautifyrc settings files support for even more control on a per-project basis
+* puts the cursor back in the same location it was before formatting (accounts for whitespace/newline changes)
+* Sublime Text 3 support
+
 
 ## Settings
-JsFormat uses whatever tab character settings are configured with the standard "translate_tabs_to_spaces" and "tab_size" sublime settings.
+JsFormat uses whatever tab/indent settings are configured with the standard ```translate_tabs_to_spaces``` and ```tab_size``` sublime settings.
 
-In addition, the following settings are available in JsFormat/JsFormat.sublime-settings (defaults shown below):
+The following **JsBeautifier** settings are available in JsFormat/JsFormat.sublime-settings (defaults shown below). Check out the official [jsbeautifier documentation](https://github.com/einars/js-beautify#options) for more details on the options:
 
-* "indent_with_tabs": false
-* "max_preserve_newlines": 4
-* "preserve_newlines": true
-* "jslint_happy": false
-* "brace_style": "collapse"
-* "keep_array_indentation": false
-* "keep_function_indentation": false
-* "eval_code": false,
-* "unescape_strings": false,
-* "break_chained_methods": false*
-* "format_on_save": false
+* `indent_with_tabs`: false
+* `max_preserve_newlines`: 4
+* `preserve_newlines`: true
+* `space_in_paren`: false
+* `jslint_happy`: false
+* `brace_style`: "collapse"
+* `keep_array_indentation`: false
+* `keep_function_indentation`: false
+* `eval_code`: false,
+* `unescape_strings`: false,
+* `break_chained_methods`: false*
+* `e4x`: false
+* `wrap_line_length`: 0
+* `space_after_anon_function`: false
 
-I had an brain fart a while back and merged a pull request that modified jsbeautifier. As a result, the functionality that
-was added from that pull request has been lost. ```"ensure_space_before_linestarters"``` is no longer supported.
+The following **JsFormat** specific settings are also exposed:
 
-Suport for ensure_newline_at_eof_on_save has been removed as well. This functionality exists in sublime core, no need for JsFormat to duplicate it.
+- `format_on_save`: false  (format files on buffer save)
+- `jsbeautifyrc_files`: false (see the [.jsbeautifyrc files](#jsbeautifyrc-files) section)
+
+I had temporary lapse of judgment a while back and merged a pull request that modified jsbeautifier. As a result, the functionality that
+was added from that pull request has been lost; ```"ensure_space_before_linestarters"``` is no longer supported.
+
+The JsFormat specific ```ensure_newline_at_eof_on_save``` setting has also been removed. This functionality exists in sublime core.
+
+#### jsbeautifyrc files ####
+JsFormat now supports `.jsbeautifyrc` JSON files (disabled by default), which themselves support any of the exposed JsBeautifier options. The option augmentation order is: default options -> user settings -> `.jsbeautifyrc` option files. 
+
+A hierarchy of `.jsbeautifyrc` files is supported, where rc files at the deeper levels override the settings from rc files at higher levels. For example, given the file structure listed below, formatting `/home/you/myProject/app.js` would inherit settings from: default -> user settings -> `/home/you/myProject/.jsbeautifyrc`, while formatting `/home/you/myProject/tests/test.js` would inherit settings from: default -> user settings -> `/home/you/myProject/.jsbeautifyrc` -> `/home/you/myProject/tests/.jsbeautifyrc` 
+
+- /home/you/myProject/.jsbeautifyrc
+- /home/you/myProject/app.js
+- /home/you/myProject/tests/.jsbeautifyrc
+- /home/you/myProject/tests/test.js  
+
+
 
 ## Install
-#### [Package Control](https://github.com/wbond/sublime_package_control) (*Recommended*)
+#### [Package Control](https://github.com/wbond/sublime_package_control) (Recommended)
 JsFormat is now included in the default repository channel for [Package Control](https://github.com/wbond/sublime_package_control). It should show up in your install list
 with no changes.
 
-If it does not show up, or you are on an older version of Package Control:
-Add https://github.com/jdc0589/JsFormat as a Package Control repository. JsFormat will show up in the
+If it does not show up, or you are on an older version of Package Control,
+add https://github.com/jdc0589/JsFormat as a Package Control repository. JsFormat will show up in the
 package install list.
 
 #### Git Clone
-Clone this repository in to the Sublime Text 2 "Packages" directory, which is located where ever the 
+Clone this repository in to the Sublime Text 2 "Packages" directory, which is located where ever the
 "Preferences" -> "Browse Packages" option in sublime takes you.
 
 
@@ -57,10 +80,9 @@ The default key binding is "ctrl+alt+f"
 Unfortunately there are other plugins that use "ctrl + alt + f", this is a hard problem to solve. If JsFormat works
 OK via the command palette but does nothing when you use the "ctrl + alt + f" shortcut, you have two options:
 
-1. Add ```{ "keys": ["ctrl+alt+f"], "command": "js_format"}``` to your user keybindings file. This will override anything specifid by a plugin.
+1. Add ```{ "keys": ["ctrl+alt+f"], "command": "js_format", "context": [{"key": "selector", "operator": "equal", "operand": "source.javascript"}] }``` to your user keybindings file. This will override anything specified by a plugin.
 2. Find the offending plugin, and change the shortcut in its sublime-keymap file (will revert on updates)
 
-[This is the current bug report we are using to discuss this issue](https://github.com/jdc0589/JsFormat/issues/7); in addition I have made a [wiki page here](https://github.com/jdc0589/JsFormat/wiki/Plugins-With-Conflicting-Keybindings) to document offending plugins. If we find all the offending plugins, I will be more than happy to contribute to them to fix the problem.
 
 ## Command Palette
 
